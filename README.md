@@ -13,5 +13,12 @@ npm install @wonkytech/tm-examples
   import '@wonkytech/tm-examples';
 </script>
 
-<tm-examples></tm-examples>
+<tm-examples heading="HTML Elements">
+    <section title="button">
+        <button>Don't Press</button>
+    </section>
+    <section title="textfield">
+        <textfield>Some text</textfield>
+    </section>
+</tm-examples>
 ```
