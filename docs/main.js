@@ -8,5 +8,5 @@ render(html`
           margin: 0;
         } 
     </style>
-    <template-web-component></template-web-component>
+    <tm-examples></tm-examples>
 `, document.querySelector('body'));

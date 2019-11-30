@@ -1,6 +1,6 @@
 import {html, css, LitElement} from 'lit-element';
 
-window.customElements.define('template-web-component', class extends LitElement {
+window.customElements.define('tm-examples', class extends LitElement {
 
     // noinspection JSUnusedGlobalSymbols
     static get properties() {
