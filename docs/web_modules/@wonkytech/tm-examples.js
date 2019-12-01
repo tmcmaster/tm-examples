@@ -63778,58 +63778,60 @@ window.customElements.define('tm-examples', class extends LitElement {
 
 
   firstUpdated(_changedProperties) {
-    const sections = this.shadowRoot.querySelector('#slot').assignedNodes().filter(node => node.nodeName === "SECTION");
-    const tabs = this.shadowRoot.querySelector('#tabs');
+    this.dialog = this.shadowRoot.getElementById('dialog');
+    this.tabs = this.shadowRoot.querySelector('#tabs');
+    this.sections = this.shadowRoot.querySelector('#slot').assignedNodes().filter(node => node.nodeName === "SECTION");
+    const {
+      tabs,
+      sections
+    } = this;
     console.log('Sections: ', sections);
     sections.forEach(section => {
-      console.log('Section: ', section);
-      const main = document.createElement('main');
-      const children = [];
-      section.childNodes.forEach(child => {
-        console.log('Section Child: ', child);
-        children.push(child);
-      });
-      children.forEach(child => {
-        let c = section.removeChild(child);
-        console.log('Main Child: ', c);
-        main.appendChild(c);
-      });
+      const title = section.getAttribute('title');
       const heading = document.createElement('h3');
       heading.style = 'color:grey;margin-bottom:10px;';
-      const title = section.getAttribute('title');
       heading.innerText = title === null ? 'Example' : title;
-      section.appendChild(heading);
       const button = document.createElement('button');
 
       button.onclick = () => {
-        this.shadowRoot.getElementById('ddd').viewSource(main);
+        this.shadowRoot.getElementById('ddd').viewSource(section);
       };
 
       button.style = 'float:right;margin-top:-30px;';
       button.appendChild(document.createTextNode('Source'));
-      section.appendChild(button);
-      section.appendChild(main);
-      section.appendChild(document.createElement('hr'));
+      const hr = document.createElement('hr');
+      hr.style = "border:solid lightgrey 0.5px;";
+      section.insertBefore(hr, section.firstChild);
+      section.insertBefore(button, section.firstChild);
+      section.insertBefore(heading, section.firstChild);
       const tab = document.createElement('vaadin-tab');
       tab.appendChild(document.createTextNode(title));
       tabs.appendChild(tab);
-    });
-    this.dialog = this.shadowRoot.getElementById('dialog');
-    sections.forEach((section, index) => {
-      section.style = "display:none";
-    });
-    sections[tabs.selected].style = "display:block";
-    tabs.addEventListener('selected-changed', () => {
-      console.log('Selected: ' + tabs.selected);
-      sections.forEach((section, index) => {
-        console.log('Section: ', section);
-
-        if (index === tabs.selected) {
-          section.style = "display:block";
-        } else {
-          section.style = "display:none";
-        }
+      const scripts = Array.from(section.childNodes).filter(node => node.tagName === 'SCRIPT');
+      scripts.forEach(script => {
+        console.log('Cloning script: ', script.innerText);
+        let clone = document.createElement('script');
+        clone.innerText = script.innerText;
+        document.head.appendChild(clone);
       });
+    });
+    this.selectSection();
+    tabs.addEventListener('selected-changed', () => {
+      this.selectSection();
+    });
+  }
+
+  selectSection() {
+    const {
+      sections,
+      tabs
+    } = this;
+    sections.forEach((section, index) => {
+      if (index === tabs.selected) {
+        section.style = "display:block";
+      } else {
+        section.style = "display:none";
+      }
     });
   }
 
@@ -63850,14 +63852,16 @@ window.customElements.define('tm-examples', class extends LitElement {
             article {
                 min-width: 500px;
             }
-            
+
             h1 {
                 color: gray;
                 text-align: center;
             }
 
+            hr {
+                border: solid lightgray 0.5px;
+            }
 
-            
             button {
                 clear: both;
                 float: right;
@@ -63877,13 +63881,12 @@ window.customElements.define('tm-examples', class extends LitElement {
                 <hr/>
                 <nav>
                     <vaadin-tabs id="tabs">
-                      
+
                     </vaadin-tabs>
                 </nav>
-                <hr/>
                 <main>
                     <slot id="slot"></slot>
-                </main> 
+                </main>
             </article>
 
             <tm-demo-source id="ddd"></tm-demo-source>
@@ -63964,7 +63967,7 @@ window.customElements.define('tm-demo-source', class extends LitElement {
       flask,
       dialog
     } = this;
-    const lines = element.innerHTML.split('\n').filter(line => line.search(/\S/) > -1);
+    const lines = element.innerHTML.split('\n').filter(line => line.search(/\S/) > -1).splice(1);
     const shortestLeadingWhitespace = Math.min(lines.map(line => line.search(/\S/)).filter(n => n > -1).reduce((a, b) => a < b ? a : b));
     const source = lines.map(line => line.substr(shortestLeadingWhitespace)).join('\n');
     flask.updateCode(source);

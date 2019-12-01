@@ -11,12 +11,12 @@ render(html`
 
     <tm-examples heading="HTML Elements">
         <section title="input">
-            <input type="submit" value="Submit">
+            <input value="Some text....">
         </section>
         <section title="button">
             <style>
-                button {
-                    border: solid blue 1px;
+                button,input {
+                    border: solid grey 1px;
                 }
             </style>
             <script>
