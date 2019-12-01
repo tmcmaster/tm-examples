@@ -8,17 +8,23 @@ render(html`
           margin: 0;
         } 
     </style>
+
     <tm-examples heading="HTML Elements">
+        <section title="input">
+            <input type="submit" value="Submit">
+        </section>
         <section title="button">
             <style>
                 button {
-                    border: solid lightgrey 1px;
+                    border: solid blue 1px;
                 }
             </style>
-            <button>Don't Press</button>
-        </section>
-        <section title="input">
-            <input value="Some Text"/>
+            <script>
+                function testing() {
+                    alert('PANIC!!!!');
+                }
+            </script>
+            <button @click="${() => testing()}">Don't Press</button>
         </section>
     </tm-examples>
 `, document.querySelector('body'));
