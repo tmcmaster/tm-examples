@@ -2,6 +2,7 @@ import {html, css, LitElement} from 'lit-element';
 
 import CodeFlask from 'codeflask';
 import '@wonkytech/material-elements';
+import '@wonkytech/vaadin-elements';
 
 window.customElements.define('tm-examples', class extends LitElement {
 
@@ -20,6 +21,8 @@ window.customElements.define('tm-examples', class extends LitElement {
     // noinspection JSUnusedGlobalSymbols
     firstUpdated(_changedProperties) {
         const sections = this.shadowRoot.querySelector('#slot').assignedNodes().filter(node => node.nodeName === "SECTION");
+        const tabs = this.shadowRoot.querySelector('#tabs');
+
         console.log('Sections: ', sections);
         sections.forEach(section => {
             console.log('Section: ', section);
@@ -28,7 +31,6 @@ window.customElements.define('tm-examples', class extends LitElement {
             section.childNodes.forEach(child => {
                 console.log('Section Child: ', child);
                 children.push(child);
-
             });
             children.forEach(child => {
                 let c = section.removeChild(child);
@@ -39,7 +41,8 @@ window.customElements.define('tm-examples', class extends LitElement {
             heading.style = 'color:grey;margin-bottom:10px;';
             const title = section.getAttribute('title');
             heading.innerText = (title === null? 'Example' : title);
-            section.appendChild(heading)
+            section.appendChild(heading);
+
             const button = document.createElement('button');
             button.onclick = () => {
                 this.shadowRoot.getElementById('ddd').viewSource(main);
@@ -49,8 +52,28 @@ window.customElements.define('tm-examples', class extends LitElement {
             section.appendChild(button);
             section.appendChild(main);
             section.appendChild(document.createElement('hr'));
+
+            const tab = document.createElement('vaadin-tab');
+            tab.appendChild(document.createTextNode(title));
+            tabs.appendChild(tab);
         });
         this .dialog = this.shadowRoot.getElementById('dialog');
+        sections.forEach((section, index) => {
+            section.style = "display:none";
+        });
+        sections[tabs.selected].style = "display:block";
+
+        tabs.addEventListener('selected-changed', () => {
+            console.log('Selected: ' + tabs.selected);
+            sections.forEach((section, index) => {
+                console.log('Section: ', section);
+                if (index === tabs.selected) {
+                    section.style = "display:block";
+                } else {
+                    section.style = "display:none";
+                }
+            });
+        });
     }
 
     static get styles() {
@@ -83,6 +106,9 @@ window.customElements.define('tm-examples', class extends LitElement {
                 float: right;
             }
 
+            .hidden {
+                display: none;
+            }
         `;
     }
     // noinspection JSUnusedGlobalSymbols
@@ -90,6 +116,12 @@ window.customElements.define('tm-examples', class extends LitElement {
         return html`
             <article>
                 <h1>${this.heading}</h1>
+                <hr/>
+                <nav>
+                    <vaadin-tabs id="tabs">
+                      
+                    </vaadin-tabs>
+                </nav>
                 <hr/>
                 <main>
                     <slot id="slot"></slot>
