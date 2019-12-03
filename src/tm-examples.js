@@ -34,14 +34,14 @@ window.customElements.define('tm-examples', class extends LitElement {
 
         fetchSource(getSourcePath(this.source)).then(source => {
             this.sourceList = parseSectionSource(source);
-            console.log('------', sourceList);
+            //console.log('------', sourceList);
         }).catch(error => {
-            console.log('------', error);
+            //console.log('------', error);
         });
 
         const {tabs,sections} = this;
 
-        console.log('Sections: ', sections);
+        //console.log('Sections: ', sections);
         sections.forEach((section, index) => {
             const title = section.getAttribute('title');
 
@@ -76,7 +76,7 @@ window.customElements.define('tm-examples', class extends LitElement {
 
             const scripts = Array.from(section.childNodes).filter(node => node.tagName === 'SCRIPT');
             scripts.forEach(script  => {
-                console.log('Cloning script: ', script.innerText);
+                //console.log('Cloning script: ', script.innerText);
                 let clone = document.createElement('script');
                 clone.innerText = script.innerText;
                 document.head.appendChild(clone);
