@@ -3,6 +3,6 @@
         "pika:build": "npm install && npx @pika/web --dest ../docs/web_modules"
     },
     "dependencies": {
-        "@wonkytech/tm-examples": "^0.0.6"
+        "@wonkytech/tm-examples": "^0.0.7"
     }
 }
