@@ -48,3 +48,8 @@ npm run docs:serve
 
 After publishing and building docs, commit the new files in the docs
 directory, to update the GitHub Pages website.
+
+
+### Create Icons 
+
+https://codebeautify.org/image-to-base64-converter

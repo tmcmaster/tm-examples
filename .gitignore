@@ -61,6 +61,7 @@ typings/
 .next
 tmp
 
+.DS_Store
 .idea/
 hold/
 junk/

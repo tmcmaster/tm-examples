@@ -1,6 +1,8 @@
 {
     "scripts": {
-        "pika:build": "npm install && npx @pika/web --dest ../docs/web_modules"
+        "sites": "cp sites.json ../docs",
+        "web": "npx @pika/web --dest ../docs/web_modules",
+        "build": "npm install && npm run web && npm run sites"
     },
     "dependencies": {
         "@wonkytech/tm-examples": "^0.0.8"

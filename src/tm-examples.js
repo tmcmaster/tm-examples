@@ -4,6 +4,7 @@ import '@wonkytech/material-elements';
 import '@wonkytech/vaadin-elements';
 
 import './tm-demo-source';
+import './tm-sites';
 
 import {parseSectionSource, fetchSource, getSourcePath} from './utils';
 
@@ -109,6 +110,7 @@ window.customElements.define('tm-examples', class extends LitElement {
                 box-sizing: border-box;
                 padding: 10px;
                 width: 100%;
+                --tm-example-icon-size: 32px;
             }
 
             article {
@@ -118,6 +120,7 @@ window.customElements.define('tm-examples', class extends LitElement {
             h1 {
                 color: gray;
                 text-align: center;
+                margin-bottom: 10px;
             }
 
             hr {
@@ -132,13 +135,23 @@ window.customElements.define('tm-examples', class extends LitElement {
             .hidden {
                 display: none;
             }
+            
+            tm-sites {
+                width: 100%;
+                margin-bottom: 20px;
+            }
         `;
     }
+
     // noinspection JSUnusedGlobalSymbols
     render() {
+        const {openSite} = this;
+
         return html`
+            
             <article>
                 <h1>${this.heading}</h1>
+                <tm-sites></tm-sites>
                 <hr/>
                 <nav>
                     <vaadin-tabs id="tabs">
