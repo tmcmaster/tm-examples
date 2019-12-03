@@ -1,8 +1,0 @@
-{
-    "src" : "https://github.com/tmcmaster/tm-examples",
-    "demo" : "https://tmcmaster.github.io/tm-examples",
-    "site" : "https://tmcmaster.github.io/tm-examples",
-    "docs" : "https://tmcmaster.github.io/tm-examples#readme",
-    "npm" : "https://www.npmjs.com/package/@wonkytech/tm-examples",
-    "pika" : "https://www.pika.dev/npm/@wonkytech/material-elements"
-}
