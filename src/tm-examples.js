@@ -63,7 +63,7 @@ window.customElements.define('tm-examples', class extends LitElement {
                 const {sourceList} = this;
                 this.shadowRoot.getElementById('ddd').viewSource(sourceList[index]);
             };
-            button.style = 'float:right;margin-top:-30px;';
+            button.style = 'float:right;margin-top:-30px;border:solid lightgrey 0.5px;';
             button.appendChild(document.createTextNode('Source'));
 
             const hr = document.createElement('hr');
