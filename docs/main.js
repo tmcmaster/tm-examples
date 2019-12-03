@@ -15,9 +15,13 @@ let sites = {
 render(html`
     <style>
         body {
-          background-color: white;
-          padding: 0;
-          margin: 0;
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            left:0;
+            top:0;
+            width: 100vw;
+            height: 100vh;  
         } 
     </style>
 
@@ -26,6 +30,7 @@ render(html`
         <section title="input">
             <input value="Some text...."/>
         </section>
+        
         <section title="button">
             <style>
                 button,input {
@@ -54,5 +59,6 @@ render(html`
                 <vaadin-grid-column path="visitCount" text-align="end" width="120px" flex-grow="0"></vaadin-grid-column>
             </vaadin-grid>
         </section>
+        
     </tm-examples>
 `, document.querySelector('body'));
