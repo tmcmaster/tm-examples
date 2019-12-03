@@ -2,9 +2,9 @@ import {html, css, LitElement} from 'lit-element';
 
 import '@wonkytech/material-elements';
 import '@wonkytech/vaadin-elements';
+import '@wonkytech/tm-sites';
 
 import './tm-demo-source';
-import './tm-sites';
 
 import {parseSectionSource, fetchSource, getSourcePath} from './utils';
 
@@ -14,7 +14,8 @@ window.customElements.define('tm-examples', class extends LitElement {
     static get properties() {
         return {
             heading: {type: String},
-            source: {type: String}
+            source: {type: String},
+            sites: {type: Object}
         }
     }
 
@@ -22,6 +23,7 @@ window.customElements.define('tm-examples', class extends LitElement {
         super();
         this.heading = '';
         this.source = 'main.js';
+        this.sites = {}
     }
 
     // noinspection JSUnusedGlobalSymbols
@@ -81,14 +83,14 @@ window.customElements.define('tm-examples', class extends LitElement {
             });
         });
 
-        this.selectSection();
+        this._selectSection();
         tabs.addEventListener('selected-changed', () => {
-            this.selectSection();
+            this._selectSection();
         });
 
     }
 
-    selectSection() {
+    _selectSection() {
         const {sections, tabs} = this;
         sections.forEach((section, index) => {
             if (index === tabs.selected) {
@@ -98,6 +100,7 @@ window.customElements.define('tm-examples', class extends LitElement {
             }
         });
     }
+
     static get styles() {
         // language=CSS
         return css`
@@ -151,12 +154,12 @@ window.customElements.define('tm-examples', class extends LitElement {
             
             <article>
                 <h1>${this.heading}</h1>
-                <tm-sites></tm-sites>
+                ${(Object.keys(this.sites).length === 0 ? "" : html`
+                    <tm-sites .sites="${this.sites}"></tm-sites>
+                `)}
                 <hr/>
                 <nav>
-                    <vaadin-tabs id="tabs">
-
-                    </vaadin-tabs>
+                    <vaadin-tabs id="tabs"></vaadin-tabs>
                 </nav>
                 <main>
                     <slot id="slot"></slot>

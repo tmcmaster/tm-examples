@@ -5,6 +5,13 @@ let dataGridData = [
     {name: {first:'BBB', last: 'bb'}, location: {city: 'Bbb'}, visitCount: 2}
 ];
 
+let sites = {
+    'src': 'https://github.com/tmcmaster/tm-examples',
+    'pika': 'https://www.pika.dev/npm/@wonkytech/tm-examples',
+    'npm': 'https://www.npmjs.com/package/@wonkytech/tm-examples',
+    'docs': 'https://github.com/tmcmaster/tm-examples#readme'
+};
+
 render(html`
     <style>
         body {
@@ -14,7 +21,7 @@ render(html`
         } 
     </style>
 
-    <tm-examples heading="HTML Elements">
+    <tm-examples heading="HTML Elements" .sites="${sites}">
         
         <section title="input">
             <input value="Some text...."/>

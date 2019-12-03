@@ -5,6 +5,6 @@
         "build": "npm install && npm run web && npm run sites"
     },
     "dependencies": {
-        "@wonkytech/tm-examples": "^0.0.8"
+        "@wonkytech/tm-examples": "^0.0.9"
     }
 }
