@@ -63778,10 +63778,10 @@ window.customElements.define('tm-sites', class extends LitElement {
     // language=CSS
     return css`
             :host {
-                display: inline-block;
                 display: flex;
                 flex-direction: row;
-                justify-content: center;
+                //justify-content: center;
+                align-items: center;
                 --tm-example-icon-size: 24px;
             }
             button.icon {
@@ -63811,6 +63811,37 @@ window.customElements.define('tm-sites', class extends LitElement {
             button.demo {
                 background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH4wwEBC0XsmbOLgAAArlJREFUWMO9109oHFUcB/DPvN2ikHgIUkgqKc2hNIUqejAUsWCppb3lIkVQcVXEgyBq8eTJg4ci0VL00IO0Hjz1FAptQxsiNIikgmKEUnvoIWgKxXqwBbXNroc3u52d/NmZ3Wy/MDD7Zt7v+93f+817319iDTz9biM/FDCOA3gBezCCgfT5XSzjV8xhFtdQzwb5+atkFdeqkRx5ggm8gUMYRcXGWMESLuA0FtAKmhfR9itHPoIPUMNW3eEWTuF4mqFVIlp3OfIJTOH5LonzmMeHuJIXkaxBvh8nsXOTyJu4jnfEGmmJSHLkz+LbPpBnRbySzUTIPNyGz/tILo09JdZXm4AE79u8Nd8I+8TiTrICJsRq74hGI149opZyCulVU/BTGxtmaJB6vcjb62JryhkCduFwkVkrdQ4+w6c1dm+n3sjsMOVxGLuCuL2OFp1VCTy3m6m3mdzLlkoU0gVGcSCI332n7bWFJtcTj/Pxy3z0EsNDMTslUcH+gCfLzMru3Y9s4cg+PnuLveOpwHLZ2BMw3FUCM3hqjGNv8vqLDDxaaklGggdHak8YGuS9ST55LS5PwUwMhEKv9RFV0Uw81mugv+7wzSXOXObOP4Sk0LS7VdzsVcAvN/jyLFd+i6kvSA7LVSwqcQBll/bfe0z/wNczLN+Oe0RSnBwWq+L5PKngXtCM//ufnDzH+R/5734kL4kVfFcVDeQSdhSaVef7q5yY5upS/MclUp7FEmaronudEd3KhqgELv4UC+323+lJ0j0u4FoQrfMp0UB2xI2bseJ7JL8lOuZ6M8xCOtARSVK60NbC6ZSzZUgaonWe7zl0Z1zGFylnmyf8A0dF49gvXE85Wj1CyHUqC2Ix9kNE05a39QaheZPBHF61ucsxL9rxtp6AjVuzbaJTrnkYrdk6Ih5uc7qOCPrYnv8PeU7GhmqMOYIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMTItMDNUMTg6MDI6MDkrMTE6MDA/tH1qAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTEyLTAzVDE3OjQ1OjIzKzExOjAw3ckgKwAAAABJRU5ErkJggg==);
             }
+            
+            .center {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex: 2;
+            }
+            .left,.right {
+                flex: 1;
+            }
+            
+            .right ::slotted(*) {
+                float: right;
+            }
+        `;
+  } // noinspection JSUnusedGlobalSymbols
+
+
+  render() {
+    return html`
+            <div class="left">
+                <slot name="left"></slot>
+            </div>
+            <div class="center">
+                ${Object.keys(this.sites).map(key => html`
+                    <button @click="${() => this.openSite(key)}" class="icon ${key}"></button>
+                `)}
+            </div>
+            <div class="right">
+                <slot name="right"></slot>
+            </div>
         `;
   }
 
@@ -63820,15 +63851,6 @@ window.customElements.define('tm-sites', class extends LitElement {
     } = this;
     console.log('Site: ' + site);
     window.open(sites[site], '_blank');
-  } // noinspection JSUnusedGlobalSymbols
-
-
-  render() {
-    return html`
-            ${Object.keys(this.sites).map(key => html`
-                <button @click="${() => this.openSite(key)}" class="icon ${key}"></button>
-            `)}
-        `;
   }
 
 });
@@ -63983,6 +64005,9 @@ window.customElements.define('tm-examples', class extends LitElement {
       },
       sites: {
         type: Object
+      },
+      author: {
+        type: Object
       }
     };
   }
@@ -63991,7 +64016,15 @@ window.customElements.define('tm-examples', class extends LitElement {
     super();
     this.heading = '';
     this.source = 'main.js';
-    this.sites = {};
+    this.sites = {}; // TODO: need to sort out making author details configurable
+
+    this.author = {
+      'site': 'htts://tim.mcmaster.id.au',
+      'src': 'https://github.com/tmcmaster',
+      'pika': 'https://www.pika.dev/search?q=%40wonkytech',
+      'npm': 'https://www.npmjs.com/search?q=%40wonkytech',
+      'docs': 'https://wonkytech.net'
+    };
   } // noinspection JSUnusedGlobalSymbols
 
 
@@ -64000,16 +64033,14 @@ window.customElements.define('tm-examples', class extends LitElement {
     this.tabs = this.shadowRoot.querySelector('#tabs');
     this.sections = this.shadowRoot.querySelector('#slot').assignedNodes().filter(node => node.nodeName === "SECTION");
     fetchSource(getSourcePath(this.source)).then(source => {
-      this.sourceList = parseSectionSource(source);
-      console.log('------', sourceList);
-    }).catch(error => {
-      console.log('------', error);
+      this.sourceList = parseSectionSource(source); //console.log('------', sourceList);
+    }).catch(error => {//console.log('------', error);
     });
     const {
       tabs,
       sections
-    } = this;
-    console.log('Sections: ', sections);
+    } = this; //console.log('Sections: ', sections);
+
     sections.forEach((section, index) => {
       const title = section.getAttribute('title');
       const heading = document.createElement('h3');
@@ -64041,7 +64072,7 @@ window.customElements.define('tm-examples', class extends LitElement {
       });
       const scripts = Array.from(section.childNodes).filter(node => node.tagName === 'SCRIPT');
       scripts.forEach(script => {
-        console.log('Cloning script: ', script.innerText);
+        //console.log('Cloning script: ', script.innerText);
         let clone = document.createElement('script');
         clone.innerText = script.innerText;
         document.head.appendChild(clone);
@@ -64077,15 +64108,20 @@ window.customElements.define('tm-examples', class extends LitElement {
                 flex-direction: row;
                 justify-content: center;
                 background: var(--tm-demo-background, inherit);
-                //border: solid green 2px;
+                //border: solid gray 2px;
                 box-sizing: border-box;
                 padding: 10px;
                 width: 100%;
+                height: 100%;
                 --tm-example-icon-size: 32px;
+                padding: 20px;
             }
 
             article {
                 min-width: 500px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
             }
 
             h1 {
@@ -64111,6 +64147,17 @@ window.customElements.define('tm-examples', class extends LitElement {
                 width: 100%;
                 margin-bottom: 20px;
             }
+            header {
+            }
+            main {
+                flex-grow: 1;
+                //border: solid blue 1px;
+                overflow: scroll;
+            }
+            footer {
+                //border: solid red 1px;
+                max-height: 25px;
+            }
         `;
   } // noinspection JSUnusedGlobalSymbols
 
@@ -64119,17 +64166,26 @@ window.customElements.define('tm-examples', class extends LitElement {
     return html`
             
             <article>
-                <h1>${this.heading}</h1>
-                ${Object.keys(this.sites).length === 0 ? "" : html`
-                    <tm-sites .sites="${this.sites}"></tm-sites>
-                `}
-                <hr/>
-                <nav>
-                    <vaadin-tabs id="tabs"></vaadin-tabs>
-                </nav>
+                <header>
+                    <h1>${this.heading}</h1>
+                    ${Object.keys(this.sites).length === 0 ? "" : html`
+                        <tm-sites .sites="${this.sites}"></tm-sites>
+                    `}
+                    <hr/>                
+                    <nav>
+                        <vaadin-tabs id="tabs"></vaadin-tabs>
+                    </nav>
+                </header>
+
                 <main>
                     <slot id="slot"></slot>
                 </main>
+                <footer>
+                    <tm-sites .sites="${this.author}">
+                        <span slot="left">Tim McMaster</span>
+                        <span slot="right">tim@mcmaster.id.au</span>
+                    </tm-sites>
+                </footer>
             </article>
 
             <tm-demo-source id="ddd"></tm-demo-source>
