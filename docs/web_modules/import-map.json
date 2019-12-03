@@ -1,5 +1,6 @@
 {
   "imports": {
-    "@wonkytech/tm-examples": "./@wonkytech/tm-examples.js"
+    "@wonkytech/tm-examples": "./@wonkytech/tm-examples.js",
+    "xslt-processor": "./xslt-processor.js"
   }
 }

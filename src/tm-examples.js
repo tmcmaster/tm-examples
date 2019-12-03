@@ -4,18 +4,28 @@ import CodeFlask from 'codeflask';
 import '@wonkytech/material-elements';
 import '@wonkytech/vaadin-elements';
 
+
 window.customElements.define('tm-examples', class extends LitElement {
 
     // noinspection JSUnusedGlobalSymbols
     static get properties() {
         return {
-            heading: {type: String}
+            heading: {type: String},
+            source: {type: String}
         }
     }
 
     constructor() {
         super();
         this.heading = '';
+        this.source = '/docs/main.js';
+
+        fetchSource(this.source).then(source => {
+            this.sourceList = parseSectionSource(source);
+            console.log('------', sourceList);
+        }).catch(error => {
+            console.log('------', error);
+        });
     }
 
     // noinspection JSUnusedGlobalSymbols
@@ -27,7 +37,7 @@ window.customElements.define('tm-examples', class extends LitElement {
         const {tabs,sections} = this;
 
         console.log('Sections: ', sections);
-        sections.forEach(section => {
+        sections.forEach((section, index) => {
             const title = section.getAttribute('title');
 
             const heading = document.createElement('h3');
@@ -36,7 +46,8 @@ window.customElements.define('tm-examples', class extends LitElement {
 
             const button = document.createElement('button');
             button.onclick = () => {
-                this.shadowRoot.getElementById('ddd').viewSource(section);
+                const {sourceList} = this;
+                this.shadowRoot.getElementById('ddd').viewSource(sourceList[index]);
             };
             button.style = 'float:right;margin-top:-30px;';
             button.appendChild(document.createTextNode('Source'));
@@ -50,6 +61,13 @@ window.customElements.define('tm-examples', class extends LitElement {
             const tab = document.createElement('vaadin-tab');
             tab.appendChild(document.createTextNode(title));
             tabs.appendChild(tab);
+
+            const templates = Array.from(section.childNodes).filter(node => node.tagName === 'CODE');
+            templates.forEach(template  => {
+                Array.from(template.childNodes).forEach((node) => {
+                    //section.appendChild(node);
+                });
+            });
 
             const scripts = Array.from(section.childNodes).filter(node => node.tagName === 'SCRIPT');
             scripts.forEach(script  => {
@@ -200,12 +218,67 @@ window.customElements.define('tm-demo-source', class extends LitElement {
         `;
     }
 
-    viewSource(element) {
+    viewSource(source) {
         const {flask, dialog} = this;
-        const lines = element.innerHTML.split('\n').filter(line => line.search(/\S/) > -1).splice(1);
-        const shortestLeadingWhitespace = Math.min(lines.map(line => line.search(/\S/)).filter(n => n > -1).reduce((a,b) => (a < b ? a : b)));
-        const source = lines.map(line => line.substr(shortestLeadingWhitespace)).join('\n');
         flask.updateCode(source);
         dialog.open = true;
     }
 });
+
+function parseSectionSource(source) {
+    const START = "<section ";
+    const END = "</section>";
+
+    let pointer = 0;
+
+    const sourceList = [];
+    while ((pointer = source.indexOf(START, pointer)) > -1) {
+        const start = source.indexOf('>', pointer) + 1;
+        const end = source.indexOf(END, start + 1);
+        const sectionSource = removeIndent(source.substr(start, end-start));
+        sourceList.push(sectionSource);
+        pointer = end + END.length;
+    }
+    console.log('---- RESULTS: ', sourceList);
+    return sourceList;
+}
+
+const matches = (text, pattern) => ({
+    [Symbol.iterator]: function * () {
+        const clone = new RegExp(pattern.source, pattern.flags);
+        let match = null;
+        do {
+            match = clone.exec(text);
+            if (match) {
+                yield match;
+            }
+        } while (match);
+    }
+});
+
+function removeIndent(source){
+    console.log('Source: ', source);
+    const lines = source.split('\n').filter(line => line.search(/\S/) > -1);
+    console.log('Lines: ', lines);
+    const shortestLeadingWhitespace = Math.min(lines.map(line => line.search(/\S/)).filter(n => n > -1).reduce((a,b) => (a < b ? a : b)));
+    const result = lines.map(line => line.substr(shortestLeadingWhitespace)).join('\n');
+    return result;
+}
+
+function fetchSource(source) {
+    return new Promise((resolve, reject) => {
+        fetch(source).then((response) => {
+            return response.text();
+        }).then((text) => {
+            const END_TOKEN = '</tm-examples>';
+            const start = text.indexOf('<tm-examples');
+            const end = text.substr(start).indexOf(END_TOKEN) + END_TOKEN.length;
+            const source = text.substr(start,end);
+            console.log('MAIN SOURCE SOURCE: ', start, end, source);
+            resolve(source);
+        }).catch((error) => {
+            console.log('MAIN SOURCE ERROR: ', error);
+            reject(error);
+        });
+    });
+}
