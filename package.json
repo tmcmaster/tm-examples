@@ -35,9 +35,9 @@
         "docs:open": "http-server --open docs"
     },
     "dependencies": {
-        "@wonkytech/polymer-elements": "0.0.8",
-        "@wonkytech/vaadin-elements": "0.0.19",
-        "@wonkytech/material-elements": "0.0.6",
+        "@wonkytech/polymer-elements": "^0.0.14",
+        "@wonkytech/vaadin-elements": "^0.0.29",
+        "@wonkytech/material-elements": "^0.0.6",
         "@wonkytech/tm-sites": "^0.0.4",
         "codeflask": "^1.4.1",
         "lit-element": "^2.0.1",
