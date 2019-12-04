@@ -35,7 +35,7 @@
         "docs:open": "http-server --open docs"
     },
     "dependencies": {
-        "@wonkytech/material-elements": "0.0.5",
+        "@wonkytech/material-elements": "0.0.6",
         "@wonkytech/vaadin-elements": "0.0.19",
         "@wonkytech/tm-sites": "^0.0.4",
         "codeflask": "^1.4.1",
