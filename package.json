@@ -40,7 +40,15 @@
         "@wonkytech/tm-sites": "^0.0.4",
         "codeflask": "^1.4.1",
         "lit-element": "^2.0.1",
-        "lit-html": "^1.0.0"
+        "lit-html": "^1.0.0",
+        "@polymer/iron-a11y-announcer": "^3.0.2",
+        "@polymer/iron-a11y-keys-behavior": "^3.0.1",
+        "@polymer/iron-icon": "^3.0.1",
+        "@polymer/iron-iconset-svg": "^3.0.1",
+        "@polymer/iron-list": "^3.1.0",
+        "@polymer/iron-media-query": "^3.0.1",
+        "@polymer/iron-resizable-behavior": "^3.0.1",
+        "@polymer/iron-scroll-target-behavior": "^3.0.1"
     },
     "devDependencies": {
         "@pika/pack": "^0.5.0",
