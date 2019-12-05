@@ -60,5 +60,14 @@ render(html`
             </vaadin-grid>
         </section>
         
+        <section title="Paper Button">
+            <paper-button>Paper Button</paper-button>
+        </section>
+        
+        <section title="Paper Input">
+            AAA
+            <paper-input always-float-label label="Paper Input"></paper-input>
+            BBB
+        </section>
     </tm-examples>
 `, document.querySelector('body'));
