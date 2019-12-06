@@ -2,6 +2,7 @@ import {html, css, LitElement} from 'lit-element';
 
 import '@wonkytech/material-elements';
 import '@wonkytech/vaadin-elements';
+import '@wonkytech/polymer-elements';
 import '@wonkytech/tm-sites';
 
 import './tm-demo-source';
@@ -27,7 +28,7 @@ window.customElements.define('tm-examples', class extends LitElement {
         this.sites = {};
         // TODO: need to sort out making author details configurable
         this.author = {
-            'site': 'htts://tim.mcmaster.id.au',
+            'site': 'http://tim.mcmaster.id.au',
             'src': 'https://github.com/tmcmaster',
             'pika': 'https://www.pika.dev/search?q=%40wonkytech',
             'npm': 'https://www.npmjs.com/search?q=%40wonkytech',
