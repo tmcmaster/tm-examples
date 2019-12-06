@@ -15556,4 +15556,127 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 // bc
 const Base = LegacyElementMixin(HTMLElement).prototype;
 
-export { templatize as A, Base as B, Class as C, Debouncer as D, ElementMixin as E, FlattenedNodesObserver as F, GestureEventListeners as G, resetMouseCanceller as H, OptionalMutableDataBehavior as O, Polymer as P, Templatizer as T, animationFrame as a, matches as b, afterNextRender as c, dom as d, enqueueDebouncer as e, flush as f, dashToCamelCase as g, html as h, idlePeriod as i, add as j, PolymerElement as k, dedupingMixin as l, microTask as m, addListener as n, mixinBehaviors as o, register$1 as p, prevent as q, resolveUrl as r, gestures as s, translate as t, useShadow as u, removeListener as v, setTouchAction as w, timeOut as x, beforeNextRender as y, DomModule as z };
+/**
+ * @fileoverview
+ * @suppress {checkPrototypalTypes}
+ * @license Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt The complete set of authors may be found
+ * at http://polymer.github.io/AUTHORS.txt The complete set of contributors may
+ * be found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by
+ * Google as part of the polymer project is also subject to an additional IP
+ * rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+
+const DISABLED_ATTR = 'disable-upgrade';
+
+/**
+ * Element class mixin that allows the element to boot up in a non-enabled
+ * state when the `disable-upgrade` attribute is present. This mixin is
+ * designed to be used with element classes like PolymerElement that perform
+ * initial startup work when they are first connected. When the
+ * `disable-upgrade` attribute is removed, if the element is connected, it
+ * boots up and "enables" as it otherwise would; if it is not connected, the
+ * element boots up when it is next connected.
+ *
+ * Using `disable-upgrade` with PolymerElement prevents any data propagation
+ * to the element, any element DOM from stamping, or any work done in
+ * connected/disconnctedCallback from occuring, but it does not prevent work
+ * done in the element constructor.
+ *
+ * Note, this mixin must be applied on top of any element class that
+ * itself implements a `connectedCallback` so that it can control the work
+ * done in `connectedCallback`. For example,
+ *
+ *     MyClass = DisableUpgradeMixin(class extends BaseClass {...});
+ *
+ * @mixinFunction
+ * @polymer
+ * @appliesMixin ElementMixin
+ * @template T
+ * @param {function(new:T)} superClass Class to apply mixin to.
+ * @return {function(new:T)} superClass with mixin applied.
+ */
+const DisableUpgradeMixin = dedupingMixin((base) => {
+  /**
+   * @constructor
+   * @implements {Polymer_ElementMixin}
+   * @extends {HTMLElement}
+   * @private
+   */
+  const superClass = ElementMixin(base);
+
+  /**
+   * @polymer
+   * @mixinClass
+   * @implements {Polymer_DisableUpgradeMixin}
+   */
+  class DisableUpgradeClass extends superClass {
+
+    /**
+     * @suppress {missingProperties} go/missingfnprops
+     */
+    static get observedAttributes() {
+      return super.observedAttributes.concat(DISABLED_ATTR);
+    }
+
+    /**
+     * @override
+     * @param {string} name Attribute name.
+     * @param {?string} old The previous value for the attribute.
+     * @param {?string} value The new value for the attribute.
+     * @param {?string} namespace The XML namespace for the attribute.
+     * @return {void}
+     */
+    attributeChangedCallback(name, old, value, namespace) {
+      if (name == DISABLED_ATTR) {
+        if (!this.__dataEnabled && value == null && this.isConnected) {
+          super.connectedCallback();
+        }
+      } else {
+        super.attributeChangedCallback(
+            name, old, value, /** @type {null|string} */ (namespace));
+      }
+    }
+
+    /*
+      NOTE: cannot gate on attribute because this is called before
+      attributes are delivered. Therefore, we stub this out and
+      call `super._initializeProperties()` manually.
+    */
+    /** @override */
+    _initializeProperties() {}
+
+    // prevent user code in connected from running
+    /** @override */
+    connectedCallback() {
+      if (this.__dataEnabled || !this.hasAttribute(DISABLED_ATTR)) {
+        super.connectedCallback();
+      }
+    }
+
+    // prevent element from turning on properties
+    /** @override */
+    _enableProperties() {
+      if (!this.hasAttribute(DISABLED_ATTR)) {
+        if (!this.__dataEnabled) {
+          super._initializeProperties();
+        }
+        super._enableProperties();
+      }
+    }
+
+    // only go if "enabled"
+    /** @override */
+    disconnectedCallback() {
+      if (this.__dataEnabled) {
+        super.disconnectedCallback();
+      }
+    }
+
+  }
+
+  return DisableUpgradeClass;
+});
+
+export { DisableUpgradeMixin as A, Base as B, Class as C, Debouncer as D, mixinBehaviors as E, FlattenedNodesObserver as F, GestureEventListeners as G, timeOut as H, OptionalMutableDataBehavior as O, Polymer as P, Templatizer as T, afterNextRender as a, animationFrame as b, matches as c, dom as d, enqueueDebouncer as e, flush as f, dashToCamelCase as g, html as h, idlePeriod as i, add as j, PolymerElement as k, addListener as l, microTask as m, gestures as n, register$1 as o, prevent as p, removeListener as q, resolveUrl as r, resetMouseCanceller as s, translate as t, useShadow as u, setTouchAction as v, beforeNextRender as w, TemplateInstanceBase as x, templatize as y, DomModule as z };
