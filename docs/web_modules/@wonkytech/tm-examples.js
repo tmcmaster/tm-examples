@@ -78346,8 +78346,8 @@ window.customElements.define('tm-examples', class extends LitElement {
       button.style = 'margin-top:-20px;float:right;border:solid lightgrey 0.5px;';
       button.appendChild(document.createTextNode('Source'));
       section.insertBefore(button, section.firstChild);
-      const main = document.createElement('main');
-      main.style = "display:inline-block;";
+      const main = document.createElement('main'); //main.style = "display:inline-block;";
+
       Array.from(section.childNodes).filter(child => child.name !== 'source').forEach(child => {
         main.appendChild(section.removeChild(child));
       });
