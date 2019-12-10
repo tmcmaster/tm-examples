@@ -82,7 +82,7 @@ window.customElements.define('tm-examples', class extends LitElement {
             section.insertBefore(button, section.firstChild);
 
             const main = document.createElement('main');
-            main.style = "display:inline-block;";
+            //main.style = "display:inline-block;";
             Array.from(section.childNodes).filter(child => child.name !== 'source').forEach(child => {
                 main.appendChild(section.removeChild(child));
             });
