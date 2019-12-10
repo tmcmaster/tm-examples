@@ -65,9 +65,7 @@ render(html`
         </section>
         
         <section title="Paper Input">
-            AAA
             <paper-input always-float-label label="Paper Input"></paper-input>
-            BBB
         </section>
     </tm-examples>
 `, document.querySelector('body'));
