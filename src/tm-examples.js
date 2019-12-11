@@ -90,8 +90,6 @@ window.customElements.define('tm-examples', class extends LitElement {
             const tab = document.createElement('vaadin-tab');
             tab.appendChild(document.createTextNode(title));
             tabs.appendChild(tab);
-
-
         });
 
         this._selectSection();
