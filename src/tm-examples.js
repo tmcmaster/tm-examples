@@ -106,6 +106,10 @@ window.customElements.define('tm-examples', class extends LitElement {
         const {sections, tabs} = this;
         sections.forEach((section, index) => {
             if (index === tabs.selected) {
+                if (section.main !== undefined) {
+                    section.appendChild(section.main);
+                    section.main = undefined;
+                }
                 section.style = "display:block";
             } else {
                 section.style = "display:none";
