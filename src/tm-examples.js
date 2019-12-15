@@ -124,8 +124,8 @@ window.customElements.define('tm-examples', class extends LitElement {
                 background: var(--tm-demo-background, inherit);
                 //border: solid gray 2px;
                 box-sizing: border-box;
-                width: 100%;
-                height: 100%;
+                width: 100vw;
+                height: 100vh;
                 --tm-example-icon-size: 32px;
                 padding: 3vmin;
             }

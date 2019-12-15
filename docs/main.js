@@ -23,6 +23,10 @@ render(html`
             width: 100vw;
             height: 100vh;  
         } 
+        
+        vaadin-grid {
+            height: 1500px;
+        }
     </style>
 
     <tm-examples heading="HTML Elements" .sites="${sites}">
