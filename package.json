@@ -28,17 +28,17 @@
         "demo": "owc-dev-server",
         "demo:open": "owc-dev-server --open demo",
         "docs:clear": "rm -rf docs/web_modules",
-        "docs:install": "npm install && npx @pika/web --dest docs/web_modules",
+        "docs:install": "npm update && npx @pika/web --dest docs/web_modules",
         "docs:pika": "(cd pika; npm run build)",
         "build:docs": "npm run docs:clear && npm run docs:install && npm run docs:pika",
         "docs": "http-server docs",
         "docs:open": "http-server --open docs"
     },
     "dependencies": {
-        "@wonkytech/polymer-elements": "~0.0.16",
-        "@wonkytech/vaadin-elements": "~0.0.32",
-        "@wonkytech/material-elements": "~0.0.6",
-        "@wonkytech/tm-sites": "~0.0.4",
+        "@wonkytech/polymer-elements": "~0.0",
+        "@wonkytech/vaadin-elements": "~0.0",
+        "@wonkytech/material-elements": "~0.0",
+        "@wonkytech/tm-sites": "~0.0",
         "codeflask": "^1.4.1",
         "lit-element": "^2.0.1",
         "lit-html": "^1.0.0"
