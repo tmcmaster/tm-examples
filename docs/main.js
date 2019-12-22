@@ -25,7 +25,7 @@ render(html`
         } 
         
         vaadin-grid {
-            height: 1500px;
+            height: 500px;
         }
     </style>
 

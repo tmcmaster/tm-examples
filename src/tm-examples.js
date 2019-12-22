@@ -82,6 +82,9 @@ window.customElements.define('tm-examples', class extends LitElement {
             section.insertBefore(button, section.firstChild);
 
             const main = document.createElement('main');
+            main.style.display = "flex";
+            main.style.flexDirection = "row";
+            main.style.justifyContent = "center";
             Array.from(section.childNodes).filter(child => child.name !== 'source').forEach(child => {
                 main.appendChild(section.removeChild(child));
             });
@@ -197,6 +200,12 @@ window.customElements.define('tm-examples', class extends LitElement {
                 justify-content: center;
                 padding-top: 20px;
                 //border: solid lightgray 1px;
+            }
+            
+            nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
             }
         `;
     }
