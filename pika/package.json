@@ -1,13 +1,18 @@
 {
     "scripts": {
+        "update": "npm update",
+        "clear": "rm -rf ../docs/web_modules",
         "web": "npx @pika/web --dest ../docs/web_modules",
-        "build": "npm update && npm run web"
+        "build": "npm run update && npm run clear && npm run web"
     },
     "dependencies": {
         "@wonkytech/material-elements": "~0.0",
         "@wonkytech/polymer-elements": "~0.0",
         "@wonkytech/tm-sites": "~0.0",
         "@wonkytech/vaadin-elements": "~0.0",
+        "codeflask": "^1.4.1",
+        "lit-element": "^2.0.1",
+        "lit-html": "^1.0.0",
         "@wonkytech/tm-examples": "^0.1.3"
     }
 }

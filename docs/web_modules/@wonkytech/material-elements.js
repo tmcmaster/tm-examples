@@ -1,4 +1,5 @@
-import { d as directive, A as AttributePart, P as PropertyPart, q as query, p as property, c as css, a as customElement, e as eventOptions, h as html, L as LitElement, n as noChange, N as NodePart, t as templateFactory } from '../common/lit-element-54503d46.js';
+import { d as directive, A as AttributePart, P as PropertyPart, h as html, n as noChange, N as NodePart, t as templateFactory } from '../common/lit-html-acd9a6eb.js';
+import { query, property, css, customElement, eventOptions, LitElement } from '../lit-element.js';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

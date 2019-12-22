@@ -1,4 +1,5 @@
-import { L as LitElement, c as css, h as html } from '../common/lit-element-54503d46.js';
+import { h as html } from '../common/lit-html-acd9a6eb.js';
+import { LitElement, css } from '../lit-element.js';
 
 window.customElements.define('tm-sites', class extends LitElement {
   // noinspection JSUnusedGlobalSymbols
