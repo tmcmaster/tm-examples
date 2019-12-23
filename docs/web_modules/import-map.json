@@ -2,11 +2,11 @@
   "imports": {
     "@wonkytech/material-elements": "./@wonkytech/material-elements.js",
     "@wonkytech/polymer-elements": "./@wonkytech/polymer-elements.js",
+    "@wonkytech/tm-examples": "./@wonkytech/tm-examples.js",
     "@wonkytech/tm-sites": "./@wonkytech/tm-sites.js",
     "@wonkytech/vaadin-elements": "./@wonkytech/vaadin-elements.js",
     "codeflask": "./codeflask.js",
     "lit-element": "./lit-element.js",
-    "lit-html": "./lit-html.js",
-    "@wonkytech/tm-examples": "./@wonkytech/tm-examples.js"
+    "lit-html": "./lit-html.js"
   }
 }

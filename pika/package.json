@@ -5,11 +5,11 @@
     "dependencies": {
         "@wonkytech/material-elements": "~0.0",
         "@wonkytech/polymer-elements": "~0.0",
+        "@wonkytech/tm-examples": "^0.1.4",
         "@wonkytech/tm-sites": "~0.0",
         "@wonkytech/vaadin-elements": "~0.1",
         "codeflask": "^1.4.1",
         "lit-element": "^2.0.1",
-        "lit-html": "^1.0.0",
-        "@wonkytech/tm-examples": "~0.1"
+        "lit-html": "^1.0.0"
     }
 }
