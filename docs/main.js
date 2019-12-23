@@ -39,6 +39,7 @@ render(html`
                 ];
             </script>
             <vaadin-grid id="vaadin-grid" .items="${dataGridData}">
+                <vaadin-grid-selection-column auto-select></vaadin-grid-selection-column>
                 <vaadin-grid-filter-column path="name.first" header="First name"></vaadin-grid-filter-column>
                 <vaadin-grid-filter-column path="name.last" header="Last name"></vaadin-grid-filter-column>
                 <vaadin-grid-sort-column path="location.city"></vaadin-grid-sort-column>
