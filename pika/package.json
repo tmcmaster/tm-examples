@@ -1,9 +1,6 @@
 {
     "scripts": {
-        "update": "npm update",
-        "clear": "rm -rf ../docs/web_modules",
-        "web": "npx @pika/web --dest ../docs/web_modules",
-        "build": "npm run update && npm run clear && npm run web"
+        "build": "npm update && pika-web --clean --dest ../docs/web_modules"
     },
     "dependencies": {
         "@wonkytech/material-elements": "~0.0",
