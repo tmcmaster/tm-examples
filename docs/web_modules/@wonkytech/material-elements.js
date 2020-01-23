@@ -1,6 +1,22 @@
 import { d as directive, A as AttributePart, P as PropertyPart, h as html, n as noChange, N as NodePart, t as templateFactory } from '../common/lit-html-acd9a6eb.js';
 import { query, property, css, customElement, eventOptions, LitElement } from '../lit-element.js';
 
+function loadLink(link) {
+  const newLink = document.createElement("link");
+  newLink.setAttribute("rel", "stylesheet");
+  newLink.setAttribute("href", link);
+
+  newLink.onload = event => {
+    console.log('Script has been loaded successfully: ' + link);
+  };
+
+  newLink.onerror = error => {
+    console.error(`There was an issue loading link(${link}):`, error);
+  };
+
+  document.getElementsByTagName('head')[0].append(newLink);
+}
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -12929,3 +12945,5 @@ TextField = __decorate([customElement('mwc-textfield')], TextField);
 let TopAppBar = class TopAppBar extends TopAppBarBase {};
 TopAppBar.styles = style$k;
 TopAppBar = __decorate([customElement('mwc-top-app-bar')], TopAppBar);
+
+loadLink("https://fonts.googleapis.com/icon?family=Material+Icons");
