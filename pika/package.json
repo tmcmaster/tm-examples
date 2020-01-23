@@ -3,9 +3,9 @@
         "build": "npm update && pika-web --clean --dest ../docs/web_modules"
     },
     "dependencies": {
-        "@wonkytech/material-elements": "~0.0",
+        "@wonkytech/material-elements": "~0.1",
         "@wonkytech/polymer-elements": "~0.0",
-        "@wonkytech/tm-examples": "^0.1.4",
+        "@wonkytech/tm-examples": "~0.1",
         "@wonkytech/tm-sites": "~0.0",
         "@wonkytech/vaadin-elements": "~0.1",
         "codeflask": "^1.4.1",

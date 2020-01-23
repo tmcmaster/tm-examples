@@ -30,7 +30,7 @@
         "docs": "http-server docs"
     },
     "dependencies": {
-        "@wonkytech/material-elements": "~0.0",
+        "@wonkytech/material-elements": "~0.1",
         "@wonkytech/polymer-elements": "~0.0",
         "@wonkytech/tm-sites": "~0.0",
         "@wonkytech/vaadin-elements": "~0.1",
