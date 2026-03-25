@@ -1,35 +1,24 @@
 ---
-project:
-  name: "tm-examples"
-  description: "Show case examples of using a web component." # Escape double quotes in description
-  author: "Tim McMaster"
-  version: "0.1.0"
-
-origin:
-  repo_type: "original"
-  git_url: "https://github.com/tmcmaster/tm-examples"
-  created: "2019-11-30"
-  modified: "2025-05-29"
-
-classification:
-  status: "unsorted"
-  engagement: "shelved"
-  priority: "low"
-  intent: []
-  domain: []
-  audience: "personal"
-
-stack:
-  languages: []
-  frameworks: []
-  databases: []
-  infrastructure: []
-  cloud: "none"
-
-capabilities:
-  features: []
-
-syntropy_id: ""
-collections: []
-tags: []
+Title: tm-examples
+Description: Show case examples of using a web component.
+Author: Tim McMaster
+Created: '2019-11-30'
+Modified: '2025-05-29'
+Status: concept
+Engagement: back-burner
+Audience: personal
+Priority: sometime
+Version: 0.1.0
+Repo-Type: original
+Repo-Author: tmcmaster
+Repo-Name: tm-examples
+Intent: []
+Domain: []
+Languages:
+- JavaScript
+Frameworks: []
+Databases: []
+Infrastructure: []
+Features: []
 ---
+
